@@ -1,3 +1,12 @@
-# Neighbours project
+# Neighbours project for Design of WWW-services course
 
-a [Sails](http://sailsjs.org) application
+MEAN + SailsJS application
+
+Link to Neighbours:
+
+  https://neighbours-app-test.herokuapp.com
+  
+To login to the dummy-condominum:
+  
+  Username: antti@testi.fi 
+  Password: anttitesti
