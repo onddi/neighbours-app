@@ -2,11 +2,11 @@
 
 MEAN + SailsJS application
 
-Link to Neighbours:
+### Link to Neighbours:
 
   https://neighbours-app-test.herokuapp.com
   
-To login to the dummy-condominum:
+### To login to the dummy-condominum:
   
   Username: antti@testi.fi 
   Password: anttitesti
