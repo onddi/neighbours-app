@@ -1,4 +1,4 @@
-# Neighbours project for Design of WWW-services course
+# Design of WWW-services course project
 
 MEAN + SailsJS application
 
