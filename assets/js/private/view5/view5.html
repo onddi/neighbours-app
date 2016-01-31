@@ -1,0 +1,38 @@
+<div class="container" ng-init="">
+
+  <h5>Select who you want to contact:</h5>
+
+  <div class="row contact-btn-cont select-contact">
+    <div class="col s4 m4 m4">
+      <div id="manager" class="valign-wrapper contact-btn waves-effect waves-cyan">
+        <p class="valign">Property manager</p>
+      </div>
+    </div>
+    <div class="col s4 m4 m4">
+      <div id="board" class="valign-wrapper contact-btn waves-effect waves-cyan">
+        <p class="valign">Board member</p>
+      </div>
+    </div>
+    <div class="col s4 m4 m4">
+      <div id="janitor" class="valign-wrapper contact-btn waves-effect waves-cyan">
+        <p class="valign">Janitor</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- https://stackoverflow.com/questions/8239782/how-to-create-an-email-form-that-can-send-email-using-html -->
+  <div class="row write-to-contact">
+    <div class="col s12 m12 m12">
+      <textarea placeholder="Type your message here..." class="materialize-textarea"></textarea>
+    </div>
+  </div>
+
+  <div class="row contact-btn-cont">
+    <div class="col s4 m2 m2 offset-s8 offset-m10 offset-l10">
+      <div class="valign-wrapper waves-effect waves-cyan">
+        <p class="valign" onclick="Materialize.toast('Message has been sent!', 4000)">Send</p>
+      </div>
+    </div>
+  </div>
+
+</div>

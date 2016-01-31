@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
+    <script type="text/javascript">
+      window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+    </script>
+
+  </head>
+
+  <body ng-app="SignupModule" ng-controller="SignupController" ng-cloak>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col s6 m4 l4 offset-s3 offset-m4 offset-l4">
+            <a href="/#"><img class="centered login-logo" src="img/logo.png"></a>
+        </div>
+
+          <div class="col s10 m6 l4 offset-s1 offset-m3 offset-l4">
+            <form ng-submit="submitSignupForm()" id="sign-up-form" name="signup">
+
+                <!-- N A M E -->
+                <div  class="control-group form-group col s12 m12 l12"
+                ng-class="{'has-error':signup.name.$invalid &&
+                                      signup.name.$dirty}">
+                  <div class="input-field col s12">
+                    <input id="name" type="text" name="name" ng-model="signupForm.name" ng-maxlength="50" class="validate" required>
+                    <label for="name">Your full name</label>
+                  </div>
+                  <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+                  and/or maxlength)-->
+                  <span class="help-block has-error" ng-if="signup.name.$dirty">
+                    <span ng-show="signup.name.$error.required">Name is required.</span>
+                    <span ng-show="signup.name.$error.maxlength">The name cannot be more than 50 characters.</span>
+                  </span>
+                </div>
+
+                <!-- EMAIL -->
+
+                <div class="control-group form-group col s12 m12 l12"
+                ng-class="{'has-error':signup.email.$invalid &&
+                                      signup.email.$dirty}">
+
+                  <div class="input-field col s12">
+                    <input type="email" name="email" ng-model="signupForm.email" class="validate" required >
+                    <label for="email">Email</label>
+                  </div>
+                  <span class="help-block has-error" ng-if="signup.email.$dirty">
+                    <span ng-show="signup.email.$error.required">Email address is required.</span>
+                    <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+                  </span>
+                </div>
+
+                <!-- HOUSING NUMBER -->
+
+                <div class="control-group form-group col s12 m12 l12"
+                  ng-class="{'has-error':signup.housingId.$invalid &&
+                                        signup.housingId.$dirty}">
+
+                    <div class="input-field col s12">
+                      <div angucomplete-alt id="ex1"
+                        placeholder="Your address"
+                        maxlength="50"
+                        pause="100"
+                        selected-object="selectedAddress"
+                        local-data="housings"
+                        search-fields="address"
+                        title-field="address"
+                        minlength="1"
+                        input-class="form-control form-control-small"
+                        match-class="highlight"
+                        field-required="addressRequired">
+                      </div>
+                    </div>
+                </div>
+
+                <!-- P A S S W O R D -->
+
+                <div class="control-group form-group col s12 m12 l12"
+                ng-class="{'has-error':signup.password.$invalid &&
+                                      signup.password.$dirty}">
+
+                  <div class="input-field col s12">
+                    <input id="email" type="password" name="password" ng-model="signupForm.password" id="password" class="validate" required ng-minlength="6" compare-to="signupForm.confirmPassword" >
+                    <label for="password">Password</label>
+                  </div>
+                  <span class="help-block has-error" ng-if="signup.password.$dirty">
+                    <span ng-show="signup.password.$error.required">Password is required.</span>
+                    <span ng-show="signup.password.$error.minlength">Password must be at least 6 characters.</span>
+                  </span>
+                </div>
+
+                  <!-- C O N F I R M  P A S S W O R D  -->
+                  <div class="control-group form-group col s12 m12 l12 sign-up-password">
+                    <div class="input-field col s12">
+                      <input id="confirmation" type="password" name="confirmation" ng-model="signupForm.confirmPassword" class="validate" required>
+                      <label for="confirmation">Re-enter your password</label>
+                    </div>
+                    <span class="help-block has-error" ng-if="signup.confirmation.$dirty">
+                      <span ng-show="signup.password.$error.compareTo">Password must match.</span>
+                      <span ng-show="signup.confirmation.$error.required">Confirmation password is required.</span>
+                    </span>
+                  </div>
+                  <button type="submit" ng-disabled="signup.$invalid || !signupForm.housingId" class="btn btn-success centered active-button login-btn">
+                    <span ng-show="!signupForm.loading">Register</span>
+                    <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+                    <span ng-show="signupForm.loading">Making your account...</span>
+                  </button>
+                  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            </form>
+          </div>
+      </div>
+    </div>
+
+  </body>
+</html>

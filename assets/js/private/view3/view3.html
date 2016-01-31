@@ -1,0 +1,61 @@
+<div class="container" ng-init="init()">
+  <!--<div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>-->
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <h4 class="view-topic">Sauna Calendar</h4>
+      <p>Click on the free turn that you would like to reserve, or on your turn that you would like to release for other people to use.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="back" class="col s1 m1 l1">
+      <i class="small mdi-navigation-chevron-left"></i>
+    </div>
+    <div id="next" class="col s1 m1 l1 offset-s10 offset-m10 offset-l10 " style="text-align:right">
+      <i class="small mdi-navigation-chevron-right"></i>
+    </div>
+  </div>
+
+  <div class="mycal" style="width:100%;" ng-click="getSelectedSlot()"></div>
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="col s4 m4 l4 calendar-legend">
+        <div id="reserved" ng-click="saunaslot = 'JES'"></div><p>= reserved turn</p>
+      </div>
+      <div class="col s4 m4 l4 calendar-legend">
+        <div id="yourturn"></div><p>= your turn</p>
+      </div>
+      <div class="col s4 m4 l4 calendar-legend">
+        <div id="freeturn"></div><p>= free turn</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Reserve Modal Structure -->
+  <div id="modal8" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <p>Would you like to reserve this sauna turn?</p>
+      <p>Date</p><h5>{{data.date}}</h5>
+      <p>Starting time</p><h5>{{data.slot}}</h5>
+    </div>
+    <div class="modal-footer">
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="reserveSlot(data.date, data.slot)">Reserve</a>
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="">Cancel</a>
+    </div>
+  </div>
+
+<!-- Release Modal Structure -->
+  <div id="modal7" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <p>Would you like to release this sauna turn?</p>
+      <p>Date</p><h5>{{data.date}}</h4>
+      <p>Turn time</p><h5>{{data.slot}}</h5>
+    </div>
+    <div class="modal-footer">
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="releaseSlot(data.eventid, data.eventrefid, data.date, data.slot)">Release</a>
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click="">Cancel</a>
+    </div>
+  </div>

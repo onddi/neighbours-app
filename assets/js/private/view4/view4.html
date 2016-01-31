@@ -1,0 +1,24 @@
+<div class="container" ng-init="init()">
+
+  <ul class="collapsible neighbours-collapsible" data-collapsible="accordion" watch>
+    <li id="licollapse" ng-repeat="user in neighbours">
+      <div class="collapsible-header neighbours-list blue-grey lighten-4">
+        <img ng-src="{{user.gravatarUrl}}" alt="" class="neighbour-profile">
+        <div class="neighbours-info-cont">
+          <span class="title"><b>{{user.name}}</b></span>
+          <p class="neighbours-list-info">Apartment {{user.apartment}}</p>
+          <p class="neighbours-list-info neighbours-contact">
+             <a href="mailto:{{user.email}}">{{user.email}}</a>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-if="user.showPhone">{{user.phone}}</span>
+          </p>
+        </div>
+        <p class="neighbours-list-info-mobile">Apartment {{user.apartment}} <br>
+           <span ng-if="user.showPhone">{{user.phone}}</span><br><a href="mailto:{{user.email}}">{{user.email}}</a>
+        </p>
+      </div>
+      <div ng-if="user.about" class="collapsible-body blue-grey lighten-5">
+        <p>{{user.about}}</p>
+      </div>
+    </li>
+  </ul>
+
+</div>

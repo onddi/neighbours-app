@@ -1,0 +1,103 @@
+<div class="container" ng-init="init()">
+<div class="row">
+  <div class="col s12 m12 l12">
+    <h4 class="view-topic" style="text-align:center">Welcome to {{housingname}}!</h4>
+    <ul>
+      <li class="search">
+        <div class="search-wrapper card">
+          <input id="search" placeholder="Search news" ng-model="searchText"><i class="material-icons">search</i>
+          <div class="search-results"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal Trigger -->
+<div class="row" ng-show="user.isAdmin">
+    <div class="col s10 m10 l10">
+      <a class="btn-floating btn-large cyan modal-trigger waves-effect waves-light modal-trigger" href="#modal1">
+        <i class="material-icons">note_add</i>
+      </a>
+    </div>
+</div>
+
+<div class="row" ng-repeat="item in news | orderBy:'createdAt':true | filter:searchText ">
+  <div class="col s12 m12 l12">
+    <div class="z-depth-1">
+      <div class="news-header"><span style="margin-right:10px">{{item.createdAt}}</span> <span style="font-size:1.5em">{{item.topic}}</span></div>
+      <div class="news-content">{{item.content}}</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Modal NEW Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field input-field-news col s6">
+          <input ng-model="newnews.topic" id="input_text" type="text">
+          <label for="input_text">Topic</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field input-field-news col s12">
+          <textarea ng-model="newnews.content" id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button id="news-send" class="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+</div>
+
+<!-- Modal EDIT Structure -->
+<div id="modal2" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input ng-model="editnews.topic" id="input_text" type="text" length="20">
+          <label for="input_text" class="active">Topic</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea ng-model="editnews.content" id="textarea1" class="materialize-textarea" length="320"></textarea>
+          <label for="textarea1" class="active">Content</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button id="news-edit-save" class="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Update
+      <i class="material-icons right">send</i>
+    </button>
+    <!--<button id="news-edit-remove" class="modal-action modal-close btn waves-effect waves-light red" type="submit" name="action">Remove
+      <i class="material-icons right">delete</i>
+    </button>-->
+  </div>
+</div>
+
+<!-- REMOVE MODAL -->
+<!-- Modal Structure -->
+<div id="modal-remove" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to remove this item?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" id="news-remove-agree" class=" modal-action modal-close waves-effect waves-orange btn-flat">Agree</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-orange btn-flat">Cancel</a>
+  </div>
+</div>

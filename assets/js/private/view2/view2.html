@@ -1,0 +1,177 @@
+<div class="container" ng-init="init()">
+  <div class="row">
+    <ul class="search-container">
+      <li class="search">
+        <div class="search-wrapper card">
+          <input id="search" placeholder="Search notes..." ng-model="searchText"><i class="material-icons">search</i>
+          <div class="search-results"></div>
+        </div>
+      </li>
+  </ul>
+  </div>
+
+  <div class="row center-align">
+  <div id="preloader" class="preloader-wrapper big active center-align">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BELOW ARE TWO COLUMS FOR NOTES, they are constructed like this because they need to be expanded to view comments -->
+  <!-- NOTES LIST 1, INCLUDES A NEW NOTEE DIV -->
+  <div class="col s6 m6 l6 large-screen">
+
+    <!-- NEW NOTEE ELEMENT-->
+    <ul class="col s12 m12 l12 z-depth-1 notes-col">
+      <li>
+      <div class="newnote-header">
+        <img class="notes-profileimage" ng-src="{{user.gravatarUrl}}">
+        {{user.name}}
+      </div>
+      <div class="newnote-input">
+        <textarea id="newnotecontent" placeholder="Type a new message here..." ng-model="newnote.content" class="materialize-textarea" maxlength="200"></textarea>
+      </div>
+      <p id="note-publish" class="note-publish notes-postbtn">
+        Publish
+      </p>
+      </li>
+    </ul>
+
+    <!-- NOTES LIST 1 -->
+    <ul ng-repeat="item in notes | orderBy:'createdAt':true  | filter:searchText" ng-if="item[0]" ng-init="parentIndex0 = $index" class="col s12 m12 l12 z-depth-1 notes-col collapsible" data-collapsible="accordion">
+      <li>
+      <div class="notes-header">
+        <img class="notes-profileimage" ng-src="{{item[0].profileimage}}">
+        {{item[0].name}}
+        <span><small>{{item[0].fromNow}}</small></span>
+        <i ng-if="item[0].userId == user.id" ng-click="deleteNote(item[0].id)" class="clear-comment tiny material-icons">clear</i>
+      </div>
+      <div class="notes-content" ng-bind-html="item[0].parsedContent">
+      </div>
+      <a id="{{'comments0' + $index}}" ng-if="item[0].comments" class="collapsible-header notes-comment-btn">Comments ({{item[0].comments.length}})</a>
+      <div class="collapsible-body">
+        <p class="notes-comments" ng-repeat="comment in item[0].comments">
+          <b>{{comment.by}}</b>
+          <i ng-if="comment.by == user.name" ng-click="deleteComment(parentIndex0, $index, true, false, item[0].id, comment.id)" class="clear-comment tiny material-icons">clear</i>
+          <br>
+          {{comment.content}}
+        </p>
+      </div>
+      <div class="comments-input">
+        <textarea placeholder="Write comment..." ng-click="showComments('comments0'+$index)" ng-model="commentfield0[$index]" ng-keypress="$event.keyCode == 13 && onComment(commentfield0[$index], $index, true, false)" onkeypress="if(event.keyCode == 13) return false;" class="materialize-textarea"></textarea>
+      </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NOTES LIST 2 -->
+  <div class="col s6 m6 l6 large-screen">
+    <ul ng-repeat="item in notes | orderBy:'createdAt':true  | filter:searchText" ng-if="item[1]" ng-init="parentIndex1 = $index" class="col s12 m12 l12 z-depth-1 notes-col collapsible" data-collapsible="accordion">
+      <li>
+      <div class="notes-header">
+        <img class="notes-profileimage" ng-src="{{item[1].profileimage}}">
+        {{item[1].name}}
+        <span><small>{{item[1].fromNow}}</small></span>
+        <i ng-if="item[1].userId == user.id" ng-click="deleteNote(item[1].id)" class="clear-comment tiny material-icons">clear</i>
+      </div>
+      <div class="notes-content" ng-bind-html="item[1].parsedContent">
+      </div>
+      <a id="{{'comments1' + $index}}" ng-if="item[1].comments" class="collapsible-header notes-comment-btn">Comments ({{item[1].comments.length}})</a>
+      <div class="collapsible-body">
+        <p class="notes-comments" ng-repeat="comment in item[1].comments">
+          <b>{{comment.by}}</b>
+          <i ng-if="comment.by == user.name" ng-click="deleteComment(parentIndex1, $index, false, false, item[1].id, comment.id)" class="clear-comment tiny material-icons">clear</i>
+          <br>
+          {{comment.content}}
+        </p>
+      </div>
+      <div class="comments-input">
+        <textarea placeholder="Write comment..." ng-click="showComments('comments1'+$index)" ng-model="commentfield1[$index]" ng-keypress="$event.keyCode == 13 && onComment(commentfield1[$index], $index, false, false)" onkeypress="if(event.keyCode == 13) return false;" class="materialize-textarea"></textarea>
+      </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NOTES VIEW FOR MOBILE -->
+  <div class="col s12 m12 l12 notes-mobile">
+
+    <ul class="col s12 m12 l12 z-depth-1 notes-col">
+      <li>
+      <div class="newnote-header">
+        <img class="notes-profileimage" ng-src="{{user.gravatarUrl}}">
+        {{user.name}}
+      </div>
+      <div class="newnote-input">
+        <textarea id="newnotecontent" placeholder="Type a new message here..." ng-model="newnote.content" class="materialize-textarea" maxlength="200"></textarea>
+      </div>
+      <p id="note-publish" class="note-publish notes-postbtn">
+        Publish
+      </p>
+      </li>
+    </ul>
+
+    <ul ng-repeat="item in notesmobile | orderBy:'createdAt':true  | filter:searchText" ng-init="parentIndex = $index" class="col s12 m12 l12 z-depth-1 notes-col collapsible" data-collapsible="accordion">
+      <li>
+        <div class="notes-header">
+          <img class="notes-profileimage" ng-src="{{item.profileimage}}">
+          {{item.name}}
+          <span><small>{{item.fromNow}}</small></span>
+        </div>
+        <div class="notes-content">
+          {{item.content}}
+        </div>
+        <a id="{{'comments' + $index}}" ng-if="item.comments" class="collapsible-header notes-comment-btn">Comments ({{item.comments.length}})</a>
+        <div class="collapsible-body">
+          <p class="notes-comments" ng-repeat="comment in item.comments">
+            <b>{{comment.by}}</b>
+            <i ng-if="comment.by == user.name" ng-click="deleteComment(parentIndex, $index, 2, true, item.id, comment.id)" class="clear-comment tiny material-icons">clear</i>
+            <br>
+            {{comment.content}}
+          </p>
+        </div>
+        <div class="comments-input">
+          <textarea placeholder="Write comment..." ng-click="showComments('comments'+$index)" ng-model="commentfield[$index]" ng-keypress="$event.keyCode == 13 && onComment(commentfield[$index], $index, false, true)" onkeypress="if(event.keyCode == 13) return false;" class="materialize-textarea"></textarea>
+        </div>
+      </li>
+    </ul>
+
+    </div>
+  </div>
+
+  <!-- Modal EDIT Structure // NOT IN USE CURRENTLY -->
+  <div id="modal4" class="modal modal-fixed-footer">
+    <div class="modal-content">
+    <!--<img class="preview-image" ng-src="{{editnote.imgurl}}">-->
+      <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input ng-model="editnote.topic" id="input_text" type="text" length="20">
+            <label for="input_text" class="active">Topic</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea ng-model="editnote.content" id="textarea1" class="materialize-textarea" length="320"></textarea>
+            <label for="textarea1" class="active">Content</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button id="note-edit-save" class="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Save
+        <i class="material-icons right">send</i>
+      </button>
+      <button id="note-edit-remove" class="modal-action modal-close btn waves-effect waves-light red" type="submit" name="action">Remove
+        <i class="material-icons right">delete</i>
+      </button>
+    </div>
+  </div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neighbours</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--Added this so the client has access to the csrf tag and it's grabbed first service side on every page -->
+    <script type="text/javascript">
+      window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+    </script>
+
+  </head>
+
+  <body ng-app="LandingpageModule" ng-controller="LandingpageController" ng-cloak>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s6 m4 l4 offset-s3 offset-m4 offset-l4">
+            <img class="centered login-logo" src="img/logo.png">
+        </div>
+        <div class="col s10 m6 l4 offset-s1 offset-m3 offset-l4">
+          <form ng-submit="submitLoginForm()" class="login-form" autocomplete="off">
+              <div class="input-field col s12">
+                <input ng-model="loginForm.email" id="email" type="text" name="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field input-password col s12">
+                <input ng-model="loginForm.password" id="password" type="password" name="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <button type="submit" class="btn btn-success centered active-button login-btn">
+                <span ng-show="!loginForm.loading">Log in</span>
+                <span ng-show="loginForm.loading" class="fa fa-spinner"></span>
+                <span ng-show="loginForm.loading">Signing in...</span>
+              </button>
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          </form>
+        </div>
+        <div class="sign-up col s10 m6 l6 offset-s1 offset-m3 offset-l3">
+          <a href="/signup">New to neighbours?<br>
+            Join your condominium’s community.</a>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

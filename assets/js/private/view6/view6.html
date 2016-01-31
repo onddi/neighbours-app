@@ -1,0 +1,74 @@
+<div class="container" ng-init="init()">
+
+  <div class="row">
+     <div class="col s4 image-border">
+         <img class="responsive-img profile-image" ng-src="{{user.gravatarUrl}}">
+         <!--<span class="change-photo">Change photo</span>-->
+         <div class="file-field input-field" style="width:100%;position:absolute;margin-top: -1.7rem;">
+          <div class="btn" style="width:100%; height: 20px;line-height:20px;background-color:transparent">
+            <span style="">Change photo</span>
+            <input type="file" onchange="angular.element(this).scope().setFile(this)" accept="image/*">
+          </div>
+         </div>
+     </div>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div class="col s10"><h5>My profile</h5></div>
+    </div>
+    <div class="row">
+       <div class="col s6 m3">Name:</div><div class="col s6 m4"><b>{{user.name}}</b></div>
+    </div>
+    <div class="row">
+       <div class="col s6 m3">Apartment:</div><div class="col s6 m4"><b>{{user.apartment}}</b></div>
+    </div>
+    <div class="row">
+       <div class="col s6 m3">Phone number:</div><div ng-if="!editphone" class="col s6 m4" style="position:relative"><b>{{user.phone}}</b><i ng-click="editnumber()" class="tiny material-icons edit-profile-icon">create</i></div>
+       <div class="col s6 m7 valign input-col"><input ng-model="user.phone" class="password-change" type="text" ng-show="editphone"></input></div>
+       <div ng-show="editphone" ng-click="editnumber();save()" class="col s4 m2"><div class="valign-wrapper save-btn waves-effect waves-cyan"><p class="valign">Change</p></div></div>
+       <p class="number-checkbox" ng-if="user.phone">
+        <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="checked" ng-click="showPhone()"/>
+        <label for="filled-in-box">Don’t show my phone number to others</label>
+      </p>
+    </div>
+    <div class="row">
+       <div class="col s6 m3">Email:</div><div ng-if="!editemail" class="col s6 m4" style="position:relative"><b>{{user.email}}</b><i ng-click="editmail()" class="tiny material-icons edit-profile-icon">create</i></div>
+       <div class="col s6 m7 valign input-col"><input ng-model="user.email" class="password-change" type="text" ng-show="editemail"></input></div>
+       <div ng-show="editemail" ng-click="editmail();save()" class="col s4 m2"><div class="valign-wrapper save-btn waves-effect waves-cyan"><p class="valign">Change</p></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div class="col s10"><h5>Change your password</h5></div>
+    </div>
+    <br>
+    <div class="row valign-wrapper">
+       <div class="col s3 m4 valign">Current password:</div><div class="col s9 m6 valign input-col"><input class="password-change" type="text"></div>
+    </div>
+    <div class="row valign-wrapper">
+       <div class="col s3 m4 valign">New password:</div><div class="col s9 m6 valign input-col"><input class="password-change" type="text"></div>
+       <div class="col s4 m2"><div class="valign-wrapper change-btn waves-effect waves-cyan"><p class="valign">Change</p></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div class="col s10"><h5>Shortly about me</h5></div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card-panel">
+          <textarea class="materialize-textarea" ng-model="user.about">{{user.about}}
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row valign-wrapper">
+     <div class="col s4 m4 offset-s8 offset-m8"><a ng-click="save()" class="valign-wrapper change-btn waves-effect waves-cyan"><p class="valign">Save</p></a></div>
+  </div>
+
+</div>
