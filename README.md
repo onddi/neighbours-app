@@ -4,9 +4,9 @@ MEAN + SailsJS application
 
 ### Neighbours application in Heroku:
 
-  https://neighbours-app-test.herokuapp.com
+  <dd>https://neighbours-app-test.herokuapp.com</dd>
   
 ### To login to the dummy-condominum:
   
-  Username: antti@testi.fi <br />
-  Password: anttitesti
+  <dd>Username: antti@testi.fi </dd><br />
+  <dd>Password: anttitesti </dd>
