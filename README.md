@@ -6,7 +6,7 @@ MEAN + SailsJS application
 
   https://neighbours-app-test.herokuapp.com
   
-### To login to the dummy-condominum:
+#### To login to the dummy-condominum:
   
   Username: antti@testi.fi <br />
   Password: anttitesti
